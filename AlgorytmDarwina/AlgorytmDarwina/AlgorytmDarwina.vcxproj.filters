@@ -30,7 +30,7 @@
     <ClInclude Include="eugenika.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="dodawanie_generacji.h">
+    <ClInclude Include="lista_polecen.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,13 +50,16 @@
     <ClCompile Include="eugenika.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="dodawanie_generacji.cpp">
+    <ClCompile Include="lista_polecen.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Homo Sovieticus - generacja 0.txt">
       <Filter>Pliki zasobów</Filter>
+    </Text>
+    <Text Include="tresc Zadania.txt">
+      <Filter>Pliki źródłowe</Filter>
     </Text>
   </ItemGroup>
 </Project>

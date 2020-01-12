@@ -15,8 +15,11 @@ double liczenie_wspolczynnika(Chromosomy * ch, typ liczba_genow)
 
 void mierzenieDopasowania(Osobnik *& osoba)
 {
+	int i = 0;
 	for (Osobnik * p = osoba; p != nullptr; p = p->pNext)
 	{
 		p->wspolczynnik_Naturalny = liczenie_wspolczynnika(p->lista_Chromosomow, p->ilosc_genu);
+		i++;
 	}
+	osoba->ilosc_genu = i; // napisywanie danej po wymianie genów z innym osobnikiem
 }

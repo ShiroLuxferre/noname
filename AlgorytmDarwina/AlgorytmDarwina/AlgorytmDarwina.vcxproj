@@ -151,16 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dodawanie_generacji.cpp" />
     <ClCompile Include="eugenika.cpp" />
+    <ClCompile Include="lista_polecen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pokaz_obecna_generacje.cpp" />
     <ClCompile Include="wczytywanie_pliku.cpp" />
     <ClCompile Include="wspolczynnik.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dodawanie_generacji.h" />
     <ClInclude Include="eugenika.h" />
+    <ClInclude Include="lista_polecen.h" />
     <ClInclude Include="pokaz_obecna_generacje.h" />
     <ClInclude Include="struktury.h" />
     <ClInclude Include="wczytywanie_pliku.h" />
@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Homo Sovieticus - generacja 0.txt" />
+    <Text Include="tresc Zadania.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

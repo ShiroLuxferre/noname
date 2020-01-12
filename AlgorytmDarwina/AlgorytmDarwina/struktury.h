@@ -11,12 +11,6 @@ struct Chromosomy
 	typ gen;	///< wartosc genu przechowywana w liscie
 	Chromosomy *pNextChromosom;	///<wskaznik na kolejny element listy
 };
-struct Stado
-{
-	typ ilosc_osobnikow_w_grupie;
-	Stado *pNextPokolenie;
-};
-
 
 struct Osobnik
 {
@@ -25,6 +19,13 @@ struct Osobnik
 	double wspolczynnik_Naturalny;
 	Chromosomy *lista_Chromosomow;
 	Osobnik *pNext;
+};
+
+struct Stado
+{
+	typ ilosc_osobnikow_w_grupie;
+	Osobnik *pierwszy_w_generacji;
+	Stado *pNextPokolenie;
 };
 
 struct Pary

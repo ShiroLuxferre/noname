@@ -7,12 +7,12 @@
 #include "wczytywanie_pliku.h"
 
 
-int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, const std::string & nazwa_pliku)
+int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, Stado *& grupa, const std::string & nazwa_pliku)
 {
 	int ilosc_osobnikow = 0, gen = 0, ilosc_genu;
 	std::string caly_chromosom;
 	std::ifstream plik(nazwa_pliku);
-
+	grupa = new Stado;
 	if (!plik)
 		std::cout << "Blad pliku" << std::endl;
 	while (true)
@@ -44,7 +44,10 @@ int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, const std::string & n
 		}
 
 		if (not osoba)
+		{
 			osoba = new Osobnik{ ilosc_genu,ilosc_osobnikow,0,chromek, nullptr };
+			grupa->pierwszy_w_generacji = osoba;
+		}
 		else {
 			auto o = osoba;
 			while (o->pNext)
@@ -52,7 +55,9 @@ int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, const std::string & n
 			o->pNext = new Osobnik{ ilosc_genu,ilosc_osobnikow,0,chromek, nullptr };
 		}
 	}
-	auto grupa = new Stado{ ilosc_osobnikow,nullptr };
+	
+	grupa->ilosc_osobnikow_w_grupie = ilosc_osobnikow;
+
 	plik.close();
 	//debug(grupa->ilosc_osobnikow_w_grupie);
 	//debug(grupa->pNextPokolenie);

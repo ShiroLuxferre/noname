@@ -9,6 +9,6 @@
 @param[in, out] lCh adres pierwszego elementu listy  chromosomów
 @param[in, out] pNextOsobnik adres kolejnego elementu listy Opis Osobników
 @param wartosc wartosc do dodania do listy */
-int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, const std::string & nazwa_pliku);
+int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, Stado *& grup, const std::string & nazwa_pliku);
 
 #endif // WCZYTYWANIE_PLIKU_H

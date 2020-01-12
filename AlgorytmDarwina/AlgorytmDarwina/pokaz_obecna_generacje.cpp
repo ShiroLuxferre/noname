@@ -3,11 +3,13 @@
 #include "struktury.h"
 #include "pokaz_obecna_generacje.h"
 
-void wyswietlPopulacje(Osobnik* opis)
+void wyswietlPopulacje(Osobnik* opis, Stado *grupa )
 {
 
 	while (opis)
 	{
+		auto l = opis->liczba_porzadkowa;
+		std::cout<< l <<std::endl;
 		auto ch = opis->lista_Chromosomow;
 		while (ch)
 		{

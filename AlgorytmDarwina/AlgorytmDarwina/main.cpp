@@ -1,7 +1,12 @@
 ﻿#include <iostream>
+#include <istream>
+#include <conio.h>
+#include <stdlib.h>
+#include <iomanip>
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <windows.h>
 
 
 
@@ -11,131 +16,228 @@
 #include "wspolczynnik.h"
 #include "eugenika.h"
 
-/* 
-void usunZleDopasowane(Osobnik *& osoba, double w) {
-	while (osoba && osoba->wspolczynnik_Naturalny < w)
-	{
-		auto os = osoba->pNext;
-		delete osoba;
-		osoba = os;
-	}
-	if (!osoba)
-	{
-		return;
-	}
-	for (Osobnik * p = osoba; p->pNext != nullptr; )
-	{
-		if (p->pNext->wspolczynnik_Naturalny < w)
-		{
-			Osobnik * nowy = p->pNext->pNext;
-			delete p->pNext;
-			p->pNext = nowy;
-		}
-		else
-		{
-			p = p->pNext;
-		}
-	}
-} */
-
-
-int main()
+//Spis funkcji algorytmu
+void crt(const std::string & text)
 {
-	double wspolczynnik_rozmanrzania = 0.75;
-	double wspolczynnik_wymierania = 0.25;
-	int wspolczynnik_k = 3;
-
-	std::string nazwa_pliku = "Homo Sovieticus - generacja 0.txt";
-	Osobnik *osoba = nullptr;
-	Chromosomy *chromek = nullptr;
-	int ilosc_osobnikow = wczytajGeneracje(osoba, chromek, nazwa_pliku);
-	
-	mierzenieDopasowania(osoba);
-	
-	doborOsobnikow(wspolczynnik_k, ilosc_osobnikow, osoba);
-	wyswietlPopulacje(osoba);
-	std::cout << std::endl;
-	usunZleDopasowane(osoba, wspolczynnik_wymierania);
-	std::cout << std::endl;
-	wyswietlPopulacje(osoba);
+	int N = 1, n=text.length();
+	for (int i = 0; i<n; i++)
+	{
+		std::cout << text[i];
+		Sleep(N);
+	}
 }
-
-/*
-
-Spis funkcji algorytmu
 void opcje()
 {
-	int N = 20;
-
-	for (int i = 0; i < N + 3; i++)
-	{
-		if (i == 0)std::cout << std::setw(1) << "+";
-		std::cout << std::setw(1) << "==";
-		if (i == (M / 2))std::cout << std::setw(1) << " Spis funkcji ";
-		if (i == (N - 1))std::cout << std::endl;
-	}
-	std::cout << std::setw(1) << "| - 'i' plik wejsciowy z populacja" << std::endl;
-	std::cout << std::setw(1) << "| - 'o' plik wyjsciowy z populacja" << std::endl;
-	std::cout << std::setw(1) << "| - 'w' wspolczynnik wymierania w E [0, 1]" << std::endl;
-	std::cout << std::setw(1) << "| - 'r' wspolczynnik rozmnazania r E [0, 1]" << std::endl;
-	std::cout << std::setw(1) << "| - 'p' liczba pokolen p" << std::endl;
-	std::cout << std::setw(1) << "| - 'k' liczba k par osobnikow losowanych do krzyzowania" << std::endl;
-	for (int i = 0; i < 4 * (N / 3) + 4; i++)
-	{
-		if (i == 0)std::cout << std::setw(1) << "+";
-		std::cout << std::setw(1) << "==";
-	}
-	std::cout << std::endl;
+	
+	std::string opcion("######################################################################\n############## \t\t\t\t\t\t##############\n#########                     \t\t\t\t     #########\n#####    '-i' plik wejsciowy z populacja                         #####\n####     '-o' plik wyjsciowy z populacja                          ####\n##       '-w' wspolczynnik wymierania w E[0, 1]                     ##\n##       '-r' wspolczynnik rozmnazania r E[0, 1]                    ##\n####     '-p' liczba pokolen p                                    ####\n#####    '-k' liczba par osobnikow losowanych do krzyzowania     #####\n########\t\t\t\t\t\t     #########\n##############                                          ##############\n######################################################################");
+	crt(opcion);
+	std::wcout << std::endl;
+	//752
 }
-//wybieranie opcji
-void menu()
+void wiersz_polecen(Osobnik*& osoba, Chromosomy*&chromek, Stado *& grupa,int r, int w, int k, int p  )
 {
-	char przelacznik;
-	bool Q = true;
+	
+}
+int main()
+{
+	Osobnik *osoba = nullptr;
+	Chromosomy *chromek = nullptr;
+	Stado *stadko = nullptr;
+	double wspolczynnik_rozmanrzania = 0.75, wspolczynnik_wymierania = 0.25;
+	int wspolczynnik_k = 3, ilosc_osobnikow, pokolenia = 1;
+	std::string nazwa_pliku;
+	opcje();
+	std::cout << std::endl;
+	std::string wybor;
 	do
 	{
-	opcje();
-	switch (przelacznik)
-	{
-	case 'i':
-
-	default:
-		break;
-	}
-	while (Q);
-
-
-void klonowanie(BadanaGrupa *grup, OpisOsobnika *& opis, double wspolczynnikRozmnazania, double wspolczynikWymierania)
-{
-	auto opis_gen_old = opis;
-	auto g = grup;
-	BadanaGrupa grupa;
-	grup = grup->pNext;
-	int ilosc_osobnikow = 0;
-	while (true)
-	{
-
-		BadanaGrupa *generacja = new BadanaGrupa;
-
-		if (opis->wspoczynnikNaturalny < wspolczynikWymierania && opis->wspoczynnikNaturalny > wspolczynnikRozmnazania)
+		char przelacznik = 'z';
+		std::getline(std::cin, wybor);
+		if (wybor.size() < 2)wybor = "hue hue";
+		else if (wybor == "exit")
+			std::exit(0);
+		else if (wybor == "help")
+			przelacznik = 'h';
+		if (wybor[wybor.size() - 2] == '-')
 		{
-			auto opis_gen_New = opis;
-			while (opis->pNextOsobnik)
-			{
-				opis = opis->pNextOsobnik;
-			}
-			opis->pNextOsobnik = new OpisOsobnika;
-			opis_gen_New->iloscGenow;
-			opis_gen_New->liczba_porzadkowa;
-			opis_gen_New->wspoczynnikNaturalny = 0;
-			opis_gen_New->lCh = nullptr;
-			grupa.lOs = opis_gen_New->pNextOsobnik;
-			ilosc_osobnikow++;
+			przelacznik = wybor.back();
+			wybor.resize(wybor.size() - 2);
+			if (wybor[wybor.size() - 1] == ' ')
+				wybor.resize(wybor.size() - 1);
 		}
-		opis = opis->pNextOsobnik;
-		grupa.liczba_osobnikow = ilosc_osobnikow;
-	}
+
+		switch (przelacznik)
+		{
+		case 'i':
+		{
+			nazwa_pliku = wybor + ".txt";
+			ilosc_osobnikow = wczytajGeneracje(osoba, chromek, stadko, nazwa_pliku);
+			//wyswietlPopulacje(osoba, stadko);
+			break;
+		}
+		case 'w':
+		{
+			std::istringstream iss(wybor);
+			if (!(iss >> wspolczynnik_wymierania))
+			{
+				crt("Nie wprowadzono liczby\n");
+				break;
+			}
+			if (wspolczynnik_wymierania < 0 || wspolczynnik_wymierania>1)
+			{
+				crt( "Wspolczynnik wymierania poza przedzialem [0,1]\nWpisz popwawna wartosc wspolczynnika.\n");
+				do
+				{
+					std::cin >> wspolczynnik_wymierania;
+				} while (wspolczynnik_wymierania < 0 || wspolczynnik_wymierania>1);
+			}
+			crt("Wspolczynnik wymierania wynosi: ");
+			std::cout<< wspolczynnik_wymierania << std::endl;
+			break;
+		}
+		case 'r':
+		{
+			std::istringstream iss(wybor);
+			iss >> wspolczynnik_rozmanrzania;
+			if (!(iss >> wspolczynnik_rozmanrzania))
+			{
+				crt("Nie wprowadzono liczby\n");
+				break;
+			}
+			if (wspolczynnik_rozmanrzania < 0 || wspolczynnik_rozmanrzania > 1)
+			{
+				crt("wspołczynnik rozmnazania poza przedzialem [0,1]\nWpisz popwawna wartosc wspolczynnika.\n");
+				do
+				{
+					std::cin >> wspolczynnik_rozmanrzania;
+				} while (wspolczynnik_rozmanrzania < 0 || wspolczynnik_rozmanrzania>1);
+			}
+			crt("Wspolczynnik rozmnazania wynosi: ");
+			std::cout<< wspolczynnik_wymierania << std::endl;
+			break;
+		}
+		case 'k':
+		{
+			std::istringstream iss(wybor);
+			iss >> wspolczynnik_k;
+			if (!(iss >> wspolczynnik_k))
+			{
+				crt("Nie wprowadzono liczby\n");
+				break;
+			}
+			if (wspolczynnik_k < 1)
+			{
+				
+			crt("Wspolczynnik k jest mniejsza od 1\nWpisz popwawna wartosc wspolczynnika.\n");
+				do
+				{
+					std::cin >> wspolczynnik_k;
+				} while (wspolczynnik_k < 1);
+			}
+			crt("Ilosc par w pokoleniu wynosi: ");
+			std::cout<< wspolczynnik_wymierania << std::endl;
+			break;
+		}
+		case 'p':
+		{
+			std::istringstream iss(wybor);
+			iss >> pokolenia;
+			if (!(iss >> pokolenia))
+			{
+				crt("Nie wprowadzono liczby\n");
+				break;
+			}
+			if (pokolenia < 1)
+			{
+				crt("Liczba pokolen jest mniejsza od 1.\nWpisz popwawna wartosc wspolczynnika.\n");
+				do
+				{
+					std::cin >> pokolenia;
+				} while (pokolenia < 1);
+			}
+			crt("Wspolczynnik wymierania wynosi: ");
+			std::cout<< pokolenia << std::endl;
+			break;
+		}
+		case 'o':
+		{
+			crt("W budowie");
+			break;
+		}
+		case 'q':
+		{
+			crt("Wspolczynnik rozmanraznia:"); std::cout << wspolczynnik_rozmanrzania;
+			crt("\nWspolczynnik wymierania: "); std::cout << wspolczynnik_wymierania;
+			crt("\nIlosc par: "); std::cout << wspolczynnik_k;
+			crt("\nIlosc badanych generacji: "); std::cout << pokolenia << std::endl;
+		}
+		case 'h':
+		{
+			opcje();
+			break;
+		}
+		case 'a':
+		{
+			if (nazwa_pliku.size() != 0)
+				wyswietlPopulacje(osoba, stadko);
+			break;
+		}
+		default:
+			if (wybor == "start")
+			{
+				if (nazwa_pliku.empty() == true)
+				{
+					crt("Czy napewno chcesz isc daje? PLik wejsciowy jest pusty.\n(y/n)\n");
+					switch (std::cin.get())
+					{
+					case 'y':
+						wybor == "start";
+						break;
+					default:
+						wybor.clear();
+						wybor == "true";
+						break;
+					}
+				}
+				else
+				{
+					crt("Naperwo chcesz opuscic liste konfiguracyjna\n(y/n)\n");
+					switch (std::cin.get())
+					{
+					case 'y':
+						wybor == "start";
+						break;
+					default:
+						wybor.clear();
+						wybor == "true";
+						break;
+					}
+				}
+			}
+			else
+			{
+				if (wybor != "start" && przelacznik == 'z')
+					crt("Podaj parametr\n");
+				else if(przelacznik != 'z')
+					crt("Podano niewlasciwy parametr\n");
+			}
+		}
+	}while (wybor != "start");
+		
+		
+		
+
+		mierzenieDopasowania(osoba);
+		doborOsobnikow(wspolczynnik_k, ilosc_osobnikow, osoba);
+		//std::cout << std::endl;
+		usunZleDopasowane(osoba, stadko, wspolczynnik_wymierania);
+		//std::cout << std::endl;
+		klonowanie(stadko, osoba, wspolczynnik_rozmanrzania, wspolczynnik_wymierania);
+
+		narodziny(stadko, osoba, wspolczynnik_rozmanrzania, wspolczynnik_wymierania); 
+
+	
+	std::cout << std::endl;
+	return 0;
 }
 
-
-*/

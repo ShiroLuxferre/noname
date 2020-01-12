@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\shiro\documents\39956b37-gr82-repo\projekt\algorytmdarwina\algorytmdarwina</FILEPATH>
+      <FILENAME>eugenika.cpp</FILENAME>
+      <LINE>73</LINE>
+      <COLUMN>6</COLUMN>
+    </SFA>
+    <DEFECTCODE>6011</DEFECTCODE>
+    <DESCRIPTION>Wyłuskanie wskaźnika NULL „o2”. W wierszu 61 znajduje się wcześniejsza lokalizacja, w której może to wystąpić</DESCRIPTION>
+    <FUNCTION>krzyzowanie_genow</FUNCTION>
+    <DECORATED>?krzyzowanie_genow@@YAXHHHHAAPAUOsobnik@@@Z</DECORATED>
+    <FUNCLINE>57</FUNCLINE>
+    <PROBABILITY>1</PROBABILITY>
+    <RANK>4</RANK>
+    <CATEGORY>
+      <RULECATEGORY>mspft</RULECATEGORY>
+    </CATEGORY>
+    <PATH>
+      <SFA>
+        <FILEPATH>c:\users\shiro\documents\39956b37-gr82-repo\projekt\algorytmdarwina\algorytmdarwina</FILEPATH>
+        <FILENAME>eugenika.cpp</FILENAME>
+        <LINE>59</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\shiro\documents\39956b37-gr82-repo\projekt\algorytmdarwina\algorytmdarwina</FILEPATH>
+        <FILENAME>eugenika.cpp</FILENAME>
+        <LINE>61</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\shiro\documents\39956b37-gr82-repo\projekt\algorytmdarwina\algorytmdarwina</FILEPATH>
+        <FILENAME>eugenika.cpp</FILENAME>
+        <LINE>63</LINE>
+        <COLUMN>8</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\shiro\documents\39956b37-gr82-repo\projekt\algorytmdarwina\algorytmdarwina</FILEPATH>
+        <FILENAME>eugenika.cpp</FILENAME>
+        <LINE>71</LINE>
+        <COLUMN>6</COLUMN>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\shiro\documents\39956b37-gr82-repo\projekt\algorytmdarwina\algorytmdarwina</FILEPATH>
+        <FILENAME>eugenika.cpp</FILENAME>
+        <LINE>72</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID>1</ID>
+          <KIND>deklaracja</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>Element „o2” może mieć wartość NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+      <SFA>
+        <FILEPATH>c:\users\shiro\documents\39956b37-gr82-repo\projekt\algorytmdarwina\algorytmdarwina</FILEPATH>
+        <FILENAME>eugenika.cpp</FILENAME>
+        <LINE>73</LINE>
+        <COLUMN>6</COLUMN>
+        <KEYEVENT>
+          <ID>2</ID>
+          <KIND>użycie</KIND>
+          <IMPORTANCE>Essential</IMPORTANCE>
+          <MESSAGE>Element „o2” jest wyłuskiwany, ale nadal może mieć wartość NULL</MESSAGE>
+        </KEYEVENT>
+      </SFA>
+    </PATH>
+  </DEFECT>
+</DEFECTS>
