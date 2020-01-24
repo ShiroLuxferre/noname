@@ -11,7 +11,7 @@
 @param pChromek adres pierwszego elementu listy  chromosomów
 @param wartosc wartoœæ do dodania do listy 
 @return iloœæ osobników w generacji*/
-int wczytajGeneracje(Osobnik*& pOsoba, Chromosomy*& pChromek, const std::string & nazwa_pliku);
+int wczytajGeneracje(Osobnik*& pOsoba, Chromosomy*& pChromek, Generacja*&  pokolenie, const std::string & nazwa_pliku);
 
 #endif // WCZYTYWANIE_PLIKU_H
  

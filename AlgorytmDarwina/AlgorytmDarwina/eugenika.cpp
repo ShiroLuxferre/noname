@@ -82,7 +82,7 @@ void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik *& pOsobnik)
 	}
 
 }
-int selekcja(Osobnik *& pOsobnik,int ilosc_osobnikow, double wspolczynnikRozmnazania, double wspolczynikWymierania)
+int selekcja(Osobnik *& pOsobnik, Generacja*& pPokolenie,int ilosc_osobnikow, double wspolczynnikRozmnazania, double wspolczynikWymierania)
 {
 	
 	int ilosc_osobnikow_w_nowym_pokoleniu = 0, liczba_porzadkowa = 1;
@@ -90,24 +90,24 @@ int selekcja(Osobnik *& pOsobnik,int ilosc_osobnikow, double wspolczynnikRozmnaz
 
 	while (ilosc_osobnikow&&pOsobnik != nullptr)
 	{
-		if (pOsobnik->pNext->wartosc_funkcji_oceny < wspolczynikWymierania )
+		if (pOsobnik->wartosc_funkcji_oceny > wspolczynikWymierania&&pOsobnik->wartosc_funkcji_oceny<wspolczynnikRozmnazania)
 		{
-			tmp = pOsobnik->pNext;
-			pOsobnik->pNext = tmp->pNext;
-			delete tmp;
+			
 		}
-		else if (pOsobnik->pNext->wartosc_funkcji_oceny > wspolczynnikRozmnazania)
+		else if (pOsobnik->wartosc_funkcji_oceny > wspolczynnikRozmnazania)
 		{
-			pOsobnik = new Osobnik{ pOsobnik->liczba ,pOsobnik->wartosc_funkcji_oceny,pOsobnik->pNaGloweListyGenow, nullptr };
-			ilosc_osobnikow_w_nowym_pokoleniu++;
-		}
-		else
-		{
-			ilosc_osobnikow_w_nowym_pokoleniu++;
+			for (int q = 0; q < 2; q++)
+			{
+				pOsobnik = new Osobnik{ pOsobnik->liczba ,pOsobnik->wartosc_funkcji_oceny,pOsobnik->pNaGloweListyGenow, nullptr };
+				ilosc_osobnikow_w_nowym_pokoleniu++;
+				if (ilosc_osobnikow_w_nowym_pokoleniu == 1)
+				{
+					pPokolenie = new Generacja{ pOsobnik, nullptr };
+				}
+			}
 		}
 		pOsobnik = pOsobnik->pNext;
 		ilosc_osobnikow--;
 	}
-	std::cout << "Przeminelo Yule, przetrwali najlepsi" << std::endl;
 	return ilosc_osobnikow_w_nowym_pokoleniu++;
 }

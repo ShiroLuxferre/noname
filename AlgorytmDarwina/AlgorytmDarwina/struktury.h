@@ -23,19 +23,16 @@ Struktura zawiera listê ze szczegolowym opisem osobnika
 struct Osobnik
 {
 	int liczba; ///< liczba genow
-	//int numer_osobnika; ///< numer osobnika
 	double wartosc_funkcji_oceny;///< wartosc funkcji oceny
-	
 	Chromosomy *pNaGloweListyGenow; /// wskaznik na liste genow osobnika
-	Osobnik *pNext;
+	Osobnik *pNext; ///<wskaznik na kolejny element listy
 };
-// TODO: usunac strukture
-struct Stado
+/**
+Struktura zawiera listê z adresami na pierszego  
+*/
+struct Generacja
 {
-	int ilosc_osobnikow_w_grupie;
-	Osobnik *pierwszy_w_generacji;
-	Stado *pNextPokolenie;
+	Osobnik *pNaPoczatekGenercji; ///< Adres na pierszego osobnika nowej generacji;
+	Generacja *pNextGeneracja; ///<wskaznik na kolejny element listy
 };
-
-
 #endif // STRUKTURY_H_INCLUDED 

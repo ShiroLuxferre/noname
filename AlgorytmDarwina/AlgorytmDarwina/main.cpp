@@ -78,8 +78,9 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 
 		Osobnik *osoba = nullptr;
 		Chromosomy *chromek = nullptr;
+		Generacja *pokolenie = nullptr;
 		
-		ilosc_osobnikow = wczytajGeneracje(osoba, chromek, nazwa_pliku);
+		ilosc_osobnikow = wczytajGeneracje(osoba, chromek, pokolenie, nazwa_pliku);
 				
 		// w petli
 		
@@ -91,7 +92,8 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 			std::cout<<"-----------"<< std::endl;
 
 			// selekcja
-			ilosc_osobnikow = selekcja(osoba, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
+			ilosc_osobnikow = selekcja(osoba, pokolenie, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
+			//osoba = pokolenie->pNaPoczatekGenercji;
 		}
 		
 

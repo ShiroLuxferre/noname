@@ -51,7 +51,7 @@ void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik *& pOsobnik);
  * @param wspolczynnik_rozmnazania powy¿ej którego osobniki sa klonowane.
  * @param wspolczynnik_wymierania wspolczynnik poni¿ej którego osobniki s¹ usuwane.
  */
-int selekcja(Osobnik *& pOsobnik, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania);
+int selekcja(Osobnik *& pOsobnik, Generacja*& pPokolenie, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania);
 
 
 

@@ -10,7 +10,7 @@
 #include "wczytywanie_pliku.h"
 
 
-int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, const std::string & nazwa_pliku)
+int wczytajGeneracje(Osobnik*& pOsoba, Chromosomy*& pChromek, Generacja*& pPokolenie, const std::string & nazwa_pliku)
 {
 	int ilosc_osobnikow = 0, gen = 0, ilosc_genu;
 	std::string caly_chromosom;
@@ -38,31 +38,30 @@ int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, const std::string & n
 			}
 			ilosc_genu++;
 			if (ilosc_genu == 1) {
-				chromek = new Chromosomy{ gen, nullptr };
+				pChromek = new Chromosomy{ gen, nullptr };
 			}
 			else {
-				auto ch = chromek;
+				auto ch = pChromek;
 				while (ch->pNextChromosom)
 					ch = ch->pNextChromosom;
 				ch->pNextChromosom = new Chromosomy{ gen, nullptr };
 			}
 		}
 
-		if (not osoba)
+		if (not pOsoba)
 		{
-			osoba = new Osobnik{ ilosc_genu, fukncja_oceny(chromek),chromek, nullptr };
+			pOsoba = new Osobnik{ ilosc_genu, fukncja_oceny(pChromek),pChromek, nullptr };
+			pPokolenie = new Generacja{ pOsoba, nullptr };
 		}
 		else {
-			auto o = osoba;
+			auto o = pOsoba;
 			while (o->pNext)
 				o = o->pNext;
-			o->pNext = new Osobnik{ ilosc_genu, fukncja_oceny(chromek),chromek, nullptr };
+			o->pNext = new Osobnik{ ilosc_genu, fukncja_oceny(pChromek),pChromek, nullptr };
 		}
 	}
 
 	plik.close();
-	//debug(grupa->ilosc_osobnikow_w_grupie);
-	//debug(grupa->pNextPokolenie);
 	std::cout << "Wczytano grupe badawcza" << std::endl;
 	return ilosc_osobnikow;
 }

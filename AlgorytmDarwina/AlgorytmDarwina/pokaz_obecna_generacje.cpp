@@ -5,11 +5,10 @@
 
 void wyswietlPopulacje(Osobnik* pGlowaOsobnika)
 {
-
+	int l = 1;
 	while (pGlowaOsobnika)
 	{
 		
-		int l = 1;
 		std::cout << l << std::endl;
 		auto ch = pGlowaOsobnika->pNaGloweListyGenow;
 		while (ch)
@@ -20,5 +19,6 @@ void wyswietlPopulacje(Osobnik* pGlowaOsobnika)
 		std::cout << std::endl;
 		std::cout << "[" << pGlowaOsobnika->wartosc_funkcji_oceny << ", " << pGlowaOsobnika->liczba<<"]"<<std::endl;
 		pGlowaOsobnika = pGlowaOsobnika->pNext;
+		l++;
 	}
 }
