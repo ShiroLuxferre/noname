@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{25997F7E-C79A-42D8-AC13-FFBDE36C0792}</ProjectGuid>
+    <ProjectGuid>{9BB9DA86-AF03-4957-AF23-F262916F2DBB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AlgorytmDarwina</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="eugenika.cpp" />
-    <ClCompile Include="lista_polecen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pokaz_obecna_generacje.cpp" />
     <ClCompile Include="wczytywanie_pliku.cpp" />
@@ -160,15 +159,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="eugenika.h" />
-    <ClInclude Include="lista_polecen.h" />
     <ClInclude Include="pokaz_obecna_generacje.h" />
     <ClInclude Include="struktury.h" />
     <ClInclude Include="wczytywanie_pliku.h" />
     <ClInclude Include="wspolczynnik.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Homo Sovieticus - generacja 0.txt" />
-    <Text Include="tresc Zadania.txt" />
+    <Text Include="i.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

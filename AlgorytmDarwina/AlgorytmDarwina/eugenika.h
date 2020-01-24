@@ -6,22 +6,53 @@
 #include "wspolczynnik.h"
 #include "eugenika.h"
 
-int losowanie(int a, int b);
 
-Osobnik * szukanieOsobnika(typ os, Osobnik * o);
+//todo: nieopisane funkcje 
+/**
+@param lewy lewy zakres losowanie
+@param prawy prawy akres losowania
+@param generator silnik losowania
+@return 
+ */
+int losowanie(int lewy, int prawy);
 
-Chromosomy * znajdz_enty_chromosom(int n, Chromosomy *chromek);
+/**
+@param os numer porz¹dowa osobnika
+@param pOsoba glowa listy osobnikow
+@return adres szukanego osobnika 
+ */
+Osobnik * szukanieOsobnika(int numer_osobnika, Osobnik * pOsoba);
 
-int pekniecie_genu(int osA, Osobnik *&opis);
 
-void krzyzowanie_genow(int pekniecie1, int osA, int pekniecie2, int osB, Osobnik *& osoba);
+/**
+@param n
+@param chromek g³owa listy Chromosomy
+@return adres szukanego chromosoma
+ */
 
-void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik *& osoba);
+Chromosomy* znajdz_przeciecie(Osobnik *& pOsobnik);
 
-void usunZleDopasowane(Osobnik *& osoba, Stado *& grupa, double w);
+/**
+@param os ???
+@param o glowa listy osobnikow
+@return adres szukanego osobnika
+ */
+void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik *& pOsoba);
 
-void klonowanie(Stado *& grupa, Osobnik *& opis, double wspolczynnikRozmnazania, double wspolczynikWymierania);
+/**
+ * @param ile_par ?
+ * @param ile_osobnikow ?
+ * @param osoba // glowa listy osobnikow, pHead
+ */ 
+void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik *& pOsobnik);
+/**
+ * @param pOsobnik wskaznik na glowe listy.
+ * @param ilosc_osobnikow liczba osobnikow w starej generacji.
+ * @param wspolczynnik_rozmnazania powy¿ej którego osobniki sa klonowane.
+ * @param wspolczynnik_wymierania wspolczynnik poni¿ej którego osobniki s¹ usuwane.
+ */
+int selekcja(Osobnik *& pOsobnik, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania);
 
-void narodziny(Stado *& grup, Osobnik *& opis, double wspolczynnikRozmnazania, double wspolczynikWymierania);
+
 
 #endif // EUGENIKA_H

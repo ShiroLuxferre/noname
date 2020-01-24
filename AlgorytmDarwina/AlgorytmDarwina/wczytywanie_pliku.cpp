@@ -1,24 +1,29 @@
+/** @file */
+
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <sstream>
 
 #include "struktury.h"
+#include "wspolczynnik.h"
 #include "wczytywanie_pliku.h"
 
 
-int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, Stado *& grupa, const std::string & nazwa_pliku)
+int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, const std::string & nazwa_pliku)
 {
 	int ilosc_osobnikow = 0, gen = 0, ilosc_genu;
 	std::string caly_chromosom;
 	std::ifstream plik(nazwa_pliku);
-	grupa = new Stado;
+
 	if (!plik)
 		std::cout << "Blad pliku" << std::endl;
 	while (true)
 	{
 
-		/* wczytywanie chromosomu do zmiennej typu string, nastepnie  dzielenie jej na pojedyncze geny */
+		/* 
+		wczytywanie chromosomu do zmiennej typu string, nastepnie  dzielenie jej na pojedyncze geny 
+		*/
 		if (!getline(plik, caly_chromosom))
 		{
 			break;
@@ -45,18 +50,15 @@ int wczytajGeneracje(Osobnik*& osoba, Chromosomy*&chromek, Stado *& grupa, const
 
 		if (not osoba)
 		{
-			osoba = new Osobnik{ ilosc_genu,ilosc_osobnikow,0,chromek, nullptr };
-			grupa->pierwszy_w_generacji = osoba;
+			osoba = new Osobnik{ ilosc_genu, fukncja_oceny(chromek),chromek, nullptr };
 		}
 		else {
 			auto o = osoba;
 			while (o->pNext)
 				o = o->pNext;
-			o->pNext = new Osobnik{ ilosc_genu,ilosc_osobnikow,0,chromek, nullptr };
+			o->pNext = new Osobnik{ ilosc_genu, fukncja_oceny(chromek),chromek, nullptr };
 		}
 	}
-	
-	grupa->ilosc_osobnikow_w_grupie = ilosc_osobnikow;
 
 	plik.close();
 	//debug(grupa->ilosc_osobnikow_w_grupie);

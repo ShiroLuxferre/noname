@@ -4,37 +4,38 @@
 #include <iostream>
 #define debug(x) std::cerr<<"("<<__LINE__<<")"<<#x<<" == "<<(x)<<"\n";
 
-typedef int typ;
 
+
+
+/**
+Struktura zawiera listê genów dla ka¿dego osobnika
+*/
 struct Chromosomy
 {
-	typ gen;	///< wartosc genu przechowywana w liscie
+	int gen;	///< wartosc genu przechowywana w liscie
 	Chromosomy *pNextChromosom;	///<wskaznik na kolejny element listy
 };
 
+
+/**
+Struktura zawiera listê ze szczegolowym opisem osobnika
+*/
 struct Osobnik
 {
-	typ ilosc_genu;
-	typ liczba_porzadkowa;
-	double wspolczynnik_Naturalny;
-	Chromosomy *lista_Chromosomow;
+	int liczba; ///< liczba genow
+	//int numer_osobnika; ///< numer osobnika
+	double wartosc_funkcji_oceny;///< wartosc funkcji oceny
+	
+	Chromosomy *pNaGloweListyGenow; /// wskaznik na liste genow osobnika
 	Osobnik *pNext;
 };
-
+// TODO: usunac strukture
 struct Stado
 {
-	typ ilosc_osobnikow_w_grupie;
+	int ilosc_osobnikow_w_grupie;
 	Osobnik *pierwszy_w_generacji;
 	Stado *pNextPokolenie;
 };
 
-struct Pary
-{
-	typ osobnikA;
-	typ miejsce_pekniecia_A;
-	typ osobnikB;
-	typ miejsce_pekniecia_B;
-	Pary *pNextPary;
-};
 
-#endif / STRUKTURY_H_INCLUDED 
+#endif // STRUKTURY_H_INCLUDED 
