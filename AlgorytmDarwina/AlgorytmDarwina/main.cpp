@@ -76,23 +76,23 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 		std::cout << "Parametry zaladowane" << std::endl;
 
 
-		Osobnik *osoba = nullptr;
-		Chromosomy *chromek = nullptr;
-		Generacja *pokolenie = nullptr;
 		
-		ilosc_osobnikow = wczytajGeneracje(osoba, chromek, pokolenie, nazwa_pliku);
-				
+		Generacja *pPokolenie = nullptr;
+		addGen(pPokolenie, wspolczynnik_p);
+		ilosc_osobnikow = wczytajGeneracje(pPokolenie, nazwa_pliku);
+		
+		auto pOsoba = pPokolenie->pNaPoczatekGenercji;
 		// w petli
 		
 		for (int i = 0; i < wspolczynnik_p; i++)
 		{
 			std::cout << "Generacja: " << i << " Ilosc Osobnikow: " << ilosc_osobnikow << std::endl;
 			// krzyzowanie
-			doborOsobnikow(wspolczynnik_k, ilosc_osobnikow, osoba);
+			doborOsobnikow(wspolczynnik_k, ilosc_osobnikow, pOsoba);
 			std::cout<<"-----------"<< std::endl;
 
 			// selekcja
-			ilosc_osobnikow = selekcja(osoba, pokolenie, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
+			ilosc_osobnikow = selekcja(pOsoba, pPokolenie, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
 			//osoba = pokolenie->pNaPoczatekGenercji;
 		}
 		
