@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+#include <chrono>
 #include <cassert>
 #include <algorithm>
 
@@ -11,7 +12,9 @@
 int losowanie(int lewy, int prawy)
 {
 	// TODO: przekzywac generator z main
-	std::random_device generator;
+	if (lewy > prawy)
+		return lewy;
+	std::default_random_engine generator;
 	std::uniform_int_distribution<int> los(lewy, prawy);
 	int wynik = los(generator);
 	//debug(wynik);
@@ -48,7 +51,8 @@ Chromosomy* znajdz_przeciecie(Osobnik *& pOsobnik)
 int liczenie_ilosci_genow(Chromosomy *& pChrom)
 {
 	int ilosc_genu = 0;
-	while (pChrom)
+	auto pCh = pChrom->pNextChromosom;
+	for (auto p = pChrom->pNextChromosom; p != nullptr; p = p->pNextChromosom)
 	{
 		ilosc_genu++;
 	}
@@ -63,13 +67,16 @@ void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik *& pOsoba)
     
     auto pOsobnikA = szukanieOsobnika (osobnikA, pOsoba);
     auto pOsobnikB = szukanieOsobnika (osobnikB, pOsoba);
-    
+	debug(pOsobnikA);
+	debug(pOsobnikB);
     Chromosomy*  pMiejsciePrzecieciaA = znajdz_przeciecie (pOsobnikA);
     Chromosomy*  pMiejsciePrzecieciaB = znajdz_przeciecie (pOsobnikB);
     
     std::swap(pMiejsciePrzecieciaA->pNextChromosom, pMiejsciePrzecieciaB->pNextChromosom); // zamiana miejscami
 	pOsobnikA->wartosc_funkcji_oceny=fukncja_oceny(pOsobnikA->pNaGloweListyGenow);
+	//std::cout << pOsobnikA->wartosc_funkcji_oceny<<std::endl;
 	pOsobnikB->wartosc_funkcji_oceny=fukncja_oceny(pOsobnikB->pNaGloweListyGenow);
+	//std::cout << pOsobnikB->wartosc_funkcji_oceny << std::endl;
 
 	pOsobnikA->liczba = liczenie_ilosci_genow(pOsobnikA->pNaGloweListyGenow);
 	pOsobnikB->liczba = liczenie_ilosci_genow(pOsobnikB->pNaGloweListyGenow);
@@ -95,24 +102,25 @@ void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik *& pOsobnik)
 	}
 
 }
-int selekcja(Osobnik *& pOsobnik, Generacja*& pPokolenie,int ilosc_osobnikow, double wspolczynnikRozmnazania, double wspolczynikWymierania)
+int selekcja(Osobnik *& pOsobnik, Generacja*& pPokolenie, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania)
 {
-	
 	int ilosc_osobnikow_w_nowym_pokoleniu = 0, liczba_porzadkowa = 1;
-	
 
 	while (ilosc_osobnikow&&pOsobnik != nullptr)
 	{
-		if (pOsobnik->wartosc_funkcji_oceny > wspolczynikWymierania&&pOsobnik->wartosc_funkcji_oceny<wspolczynnikRozmnazania)
+		if (pOsobnik->wartosc_funkcji_oceny > wspolczynnik_wymierania&&pOsobnik->wartosc_funkcji_oceny< wspolczynnik_rozmnazania)
 		{
 			pOsobnik = new Osobnik{ pOsobnik->liczba, pOsobnik->numer_osobnika,pOsobnik->wartosc_funkcji_oceny,pOsobnik->pNaGloweListyGenow, nullptr };
 			ilosc_osobnikow_w_nowym_pokoleniu++;
 			if (ilosc_osobnikow_w_nowym_pokoleniu == 1)
 			{
-				pPokolenie = new Generacja{ pOsobnik, nullptr };
+				pPokolenie = new Generacja;
+				pPokolenie->pNaPoczatekGenercji = pOsobnik;
+				pPokolenie->pNextGeneracja = nullptr;
+
 			}
 		}
-		else if (pOsobnik->wartosc_funkcji_oceny > wspolczynnikRozmnazania)
+		else if (pOsobnik->wartosc_funkcji_oceny > wspolczynnik_rozmnazania)
 		{
 			for (int q = 0; q < 2; q++)
 			{
@@ -127,5 +135,5 @@ int selekcja(Osobnik *& pOsobnik, Generacja*& pPokolenie,int ilosc_osobnikow, do
 		pOsobnik = pOsobnik->pNext;
 		ilosc_osobnikow--;
 	}
-	return ilosc_osobnikow_w_nowym_pokoleniu++;
+	return ilosc_osobnikow_w_nowym_pokoleniu;
 }

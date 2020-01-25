@@ -27,7 +27,6 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 	for (int i = 0; i < argc; i++)
 	{
 		std::string a = argv[i];
-		std::cout << argv[i+1] << a << std::endl;
 		if (a == "-i")
 		{
 			nazwa_pliku = argv[i + 1];
@@ -42,28 +41,24 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 		{
 			nazwaW = argv[i + 1];
 			wspolczynnik_wymierania = atof(nazwaW.c_str());
-			std::cout << wspolczynnik_wymierania;
 			i++;
 		}
 		else if (a == "-r")
 		{
 			nazwaR = argv[i + 1];
 			wspolczynnik_rozmnazania = atof(nazwaR.c_str());
-			std::cout << wspolczynnik_rozmnazania;
 			i++;
 		}
 		else if (a == "-k")
 		{
 			nazwaK = argv[i + 1];
 			wspolczynnik_k = atoi(nazwaK.c_str());
-			std::cout << wspolczynnik_k;
 			i++;
 		}
 		else if (a == "-p")
 		{
 			nazwaP = argv[i + 1];
 			wspolczynnik_p = atoi(nazwaP.c_str());
-			wspolczynnik_p;
 			i++;
 		}
 	}
@@ -93,10 +88,13 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 
 			// selekcja
 			ilosc_osobnikow = selekcja(pOsoba, pPokolenie, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
+			pOsoba = pPokolenie->pNaPoczatekGenercji;
 			pPokolenie = pPokolenie->pNextGeneracja;
+			debug(pOsoba);
+			debug(pPokolenie);
 			if (ilosc_osobnikow < 2)
 			{
-				std::cout << ilosc_osobnikow <<" Symulacja przerwana, w populacji nzjaduje sie jeden osobnik" << std::endl;
+				std::cout << ilosc_osobnikow <<" Symulacja przerwana, w populacji znajaduje sie jeden osobnik" << std::endl;
 				return 0;
 			}
 			//
