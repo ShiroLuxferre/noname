@@ -45,6 +45,15 @@ Chromosomy* znajdz_przeciecie(Osobnik *& pOsobnik)
 	auto miejsce_przerwania = pCh;
 	return miejsce_przerwania;
 }
+int liczenie_ilosci_genow(Chromosomy *& pChrom)
+{
+	int ilosc_genu = 0;
+	while (pChrom)
+	{
+		ilosc_genu++;
+	}
+	return ilosc_genu;
+}
 
 void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik *& pOsoba)
 {
@@ -61,6 +70,10 @@ void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik *& pOsoba)
     std::swap(pMiejsciePrzecieciaA->pNextChromosom, pMiejsciePrzecieciaB->pNextChromosom); // zamiana miejscami
 	pOsobnikA->wartosc_funkcji_oceny=fukncja_oceny(pOsobnikA->pNaGloweListyGenow);
 	pOsobnikB->wartosc_funkcji_oceny=fukncja_oceny(pOsobnikB->pNaGloweListyGenow);
+
+	pOsobnikA->liczba = liczenie_ilosci_genow(pOsobnikA->pNaGloweListyGenow);
+	pOsobnikB->liczba = liczenie_ilosci_genow(pOsobnikB->pNaGloweListyGenow);
+
     // finito 
 }
 
@@ -68,8 +81,8 @@ void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik *& pOsoba)
 void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik *& pOsobnik)
 {
 	int osA, osB;
-
-	while (ile_par != 0 )
+	
+	while (ile_par != 0)
 	{
 		osA = losowanie(1, ile_osobnikow);
 		do
@@ -86,19 +99,24 @@ int selekcja(Osobnik *& pOsobnik, Generacja*& pPokolenie,int ilosc_osobnikow, do
 {
 	
 	int ilosc_osobnikow_w_nowym_pokoleniu = 0, liczba_porzadkowa = 1;
-	Osobnik  *tmp;
+	
 
 	while (ilosc_osobnikow&&pOsobnik != nullptr)
 	{
 		if (pOsobnik->wartosc_funkcji_oceny > wspolczynikWymierania&&pOsobnik->wartosc_funkcji_oceny<wspolczynnikRozmnazania)
 		{
-			
+			pOsobnik = new Osobnik{ pOsobnik->liczba, pOsobnik->numer_osobnika,pOsobnik->wartosc_funkcji_oceny,pOsobnik->pNaGloweListyGenow, nullptr };
+			ilosc_osobnikow_w_nowym_pokoleniu++;
+			if (ilosc_osobnikow_w_nowym_pokoleniu == 1)
+			{
+				pPokolenie = new Generacja{ pOsobnik, nullptr };
+			}
 		}
 		else if (pOsobnik->wartosc_funkcji_oceny > wspolczynnikRozmnazania)
 		{
 			for (int q = 0; q < 2; q++)
 			{
-				pOsobnik = new Osobnik{ pOsobnik->liczba ,pOsobnik->wartosc_funkcji_oceny,pOsobnik->pNaGloweListyGenow, nullptr };
+				pOsobnik = new Osobnik{ pOsobnik->liczba, pOsobnik->numer_osobnika,pOsobnik->wartosc_funkcji_oceny,pOsobnik->pNaGloweListyGenow, nullptr };
 				ilosc_osobnikow_w_nowym_pokoleniu++;
 				if (ilosc_osobnikow_w_nowym_pokoleniu == 1)
 				{

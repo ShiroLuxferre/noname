@@ -83,7 +83,7 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 		
 		auto pOsoba = pPokolenie->pNaPoczatekGenercji;
 		// w petli
-		
+		//wyswietlPopulacje(pPokolenie->pNaPoczatekGenercji);
 		for (int i = 0; i < wspolczynnik_p; i++)
 		{
 			std::cout << "Generacja: " << i << " Ilosc Osobnikow: " << ilosc_osobnikow << std::endl;
@@ -93,7 +93,13 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 
 			// selekcja
 			ilosc_osobnikow = selekcja(pOsoba, pPokolenie, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
-			//osoba = pokolenie->pNaPoczatekGenercji;
+			pPokolenie = pPokolenie->pNextGeneracja;
+			if (ilosc_osobnikow < 2)
+			{
+				std::cout << ilosc_osobnikow <<" Symulacja przerwana, w populacji nzjaduje sie jeden osobnik" << std::endl;
+				return 0;
+			}
+			//
 		}
 		
 

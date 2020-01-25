@@ -32,6 +32,8 @@ Osobnik * szukanieOsobnika(int numer_osobnika, Osobnik * pOsoba);
 
 Chromosomy* znajdz_przeciecie(Osobnik *& pOsobnik);
 
+int liczenie_ilosci_genow(Chromosomy *& pChrom);
+
 /**
 @param os ???
 @param o glowa listy osobnikow

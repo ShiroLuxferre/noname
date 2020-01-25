@@ -28,7 +28,7 @@ int wczytajGeneracje(Generacja*& pPokolenie, const std::string & nazwa_pliku)
 	while (true)
 	{
 		auto pOsoba = pPokolenie->pNaPoczatekGenercji;
-		
+		Chromosomy *pChromosom = nullptr;
 		/* 
 		wczytywanie chromosomu do zmiennej typu string, nastepnie  dzielenie jej na pojedyncze geny 
 		*/
@@ -45,13 +45,12 @@ int wczytajGeneracje(Generacja*& pPokolenie, const std::string & nazwa_pliku)
 				break;
 			}
 			ilosc_genu++;
-			auto pChrmosom = pPokolenie->pNaPoczatekGenercji->pNaGloweListyGenow;
 			if (ilosc_genu == 1) 
 			{
-				pChrmosom = new Chromosomy{ gen, nullptr };
+				pChromosom = new Chromosomy{ gen, nullptr };
 			}
 			else {
-				auto ch = pChrmosom;
+				auto ch = pChromosom;
 				while (ch->pNextChromosom)
 					ch = ch->pNextChromosom;
 				ch->pNextChromosom = new Chromosomy{ gen, nullptr };
@@ -60,14 +59,14 @@ int wczytajGeneracje(Generacja*& pPokolenie, const std::string & nazwa_pliku)
 
 		if (not pOsoba)
 		{
-			pOsoba = new Osobnik{ ilosc_genu, fukncja_oceny(pChrmosom),pChrmosom, nullptr };
+			pOsoba = new Osobnik{ ilosc_genu, ilosc_osobnikow, fukncja_oceny(pChromosom),pChromosom, nullptr };
 			pPokolenie = new Generacja{ pOsoba, nullptr };
 		}
 		else {
 			auto o = pOsoba;
 			while (o->pNext)
 				o = o->pNext;
-			o->pNext = new Osobnik{ ilosc_genu, fukncja_oceny(pChrmosom),pChrmosom, nullptr };
+			o->pNext = new Osobnik{ ilosc_genu, ilosc_osobnikow, fukncja_oceny(pChromosom),pChromosom, nullptr };
 		}
 	}
 

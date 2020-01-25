@@ -23,6 +23,7 @@ Struktura zawiera listê ze szczegolowym opisem osobnika
 struct Osobnik
 {
 	int liczba; ///< liczba genow
+	int numer_osobnika; ///< numer porzadkowy osobnika
 	double wartosc_funkcji_oceny;///< wartosc funkcji oceny
 	Chromosomy *pNaGloweListyGenow; /// wskaznik na liste genow osobnika
 	Osobnik *pNext; ///<wskaznik na kolejny element listy
