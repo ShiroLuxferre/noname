@@ -5,7 +5,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <random>
+#include <time.h>
 
 #include "struktury.h"
 
@@ -19,7 +19,7 @@
 //  TODO: Parametry przekazywane z linii polecen.
 int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja 
 {
-	//std::random_device generator;
+	srand(time(NULL));
 
 	double wspolczynnik_rozmnazania = -1, wspolczynnik_wymierania = -1;
 	int wspolczynnik_k = 1, ilosc_osobnikow = 0, wspolczynnik_p = 0;
@@ -89,7 +89,7 @@ int main(int argc, char * argv[]) // wyklad z funkcji, main to tez funkcja
 			// selekcja
 			ilosc_osobnikow = selekcja(pOsoba, pPokolenie, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
 			pOsoba = pPokolenie->pNaPoczatekGenercji;
-			pPokolenie = pPokolenie->pNextGeneracja;
+			pPokolenie;
 			debug(pOsoba);
 			debug(pPokolenie);
 			if (ilosc_osobnikow < 2)

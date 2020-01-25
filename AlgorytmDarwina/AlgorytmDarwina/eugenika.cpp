@@ -1,6 +1,6 @@
 #include <iostream>
-#include <random>
-#include <chrono>
+
+#include <stdlib.h>
 #include <cassert>
 #include <algorithm>
 
@@ -14,10 +14,8 @@ int losowanie(int lewy, int prawy)
 	// TODO: przekzywac generator z main
 	if (lewy > prawy)
 		return lewy;
-	std::default_random_engine generator;
-	std::uniform_int_distribution<int> los(lewy, prawy);
-	int wynik = los(generator);
-	//debug(wynik);
+	int wynik = rand() % prawy + lewy;
+	debug(wynik);
 	return wynik;
 }
 
