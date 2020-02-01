@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include <stdlib.h>
 #include <cassert>
 #include <algorithm>
@@ -8,130 +7,210 @@
 #include "wspolczynnik.h"
 #include "eugenika.h"
 
-
 int losowanie(int lewy, int prawy)
 {
-	// TODO: przekzywac generator z main
 	if (lewy > prawy)
 		return lewy;
 	int wynik = rand() % prawy + lewy;
-	debug(wynik);
 	return wynik;
 }
 
-Osobnik * szukanieOsobnika(int numer_osobnika, Osobnik * pOsoba)
+Osobnik* szukanieOsobnika(int numer_osobnika, Osobnik* pHeadOsobnik)
 {
 	int i = 1;
-	while (true)
+	while (pHeadOsobnik->pNext != nullptr && i != numer_osobnika)
 	{
-		if (pOsoba == nullptr || i == numer_osobnika)
-			break;
-		pOsoba = pOsoba->pNext;
+		pHeadOsobnik = pHeadOsobnik->pNext;
 		i++;
 	}
-	return pOsoba;
+	return pHeadOsobnik;
 }
 
-Chromosomy* znajdz_przeciecie(Osobnik *& pOsobnik)
+Chromosomy* znajdz_przeciecie(Osobnik*& pHeadOsobnik)
 {
-	auto pOs = pOsobnik;
-	auto pCh = pOsobnik->pNaGloweListyGenow;
-	//debug(o);
-	//o = szukanieOsobnika(osA, pOpis);
-	int numer_przerwanego_genu = losowanie(2, (pOs->liczba)-1);
-	for (int i = 1; i < numer_przerwanego_genu; i++)
+	auto pOs = pHeadOsobnik;
+	auto pCh = pHeadOsobnik->pNaGloweListyGenow;
+	int i = 1;
+	int numer_przerwanego_genu = losowanie(2, (pOs->liczba) - 1);
+	while (pCh != nullptr && i != numer_przerwanego_genu)
 	{
 		pCh = pCh->pNextChromosom;
+		i++;
 	}
-	auto miejsce_przerwania = pCh;
-	return miejsce_przerwania;
+	return pCh;
 }
-int liczenie_ilosci_genow(Chromosomy *& pChrom)
+int liczenie_ilosci_genow(Osobnik*& pHeadOsobnik)
+
 {
-	int ilosc_genu = 0;
-	auto pCh = pChrom->pNextChromosom;
-	for (auto p = pChrom->pNextChromosom; p != nullptr; p = p->pNextChromosom)
+	int ilosc_genu = 1;
+	auto pIle = pHeadOsobnik->pNaGloweListyGenow;
+	while (pIle->pNextChromosom != nullptr)
 	{
 		ilosc_genu++;
+		pIle = pIle->pNextChromosom;
 	}
 	return ilosc_genu;
 }
 
-void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik *& pOsoba)
+void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik*& pHeadOsobnik)
 {
-	auto o1 = pOsoba;
-	//debug(o1);
-	auto chromek1 = o1->pNaGloweListyGenow;
-    
-    auto pOsobnikA = szukanieOsobnika (osobnikA, pOsoba);
-    auto pOsobnikB = szukanieOsobnika (osobnikB, pOsoba);
-	debug(pOsobnikA);
-	debug(pOsobnikB);
-    Chromosomy*  pMiejsciePrzecieciaA = znajdz_przeciecie (pOsobnikA);
-    Chromosomy*  pMiejsciePrzecieciaB = znajdz_przeciecie (pOsobnikB);
-    
-    std::swap(pMiejsciePrzecieciaA->pNextChromosom, pMiejsciePrzecieciaB->pNextChromosom); // zamiana miejscami
-	pOsobnikA->wartosc_funkcji_oceny=fukncja_oceny(pOsobnikA->pNaGloweListyGenow);
-	//std::cout << pOsobnikA->wartosc_funkcji_oceny<<std::endl;
-	pOsobnikB->wartosc_funkcji_oceny=fukncja_oceny(pOsobnikB->pNaGloweListyGenow);
-	//std::cout << pOsobnikB->wartosc_funkcji_oceny << std::endl;
+	auto pOsobnikA = szukanieOsobnika(osobnikA, pHeadOsobnik);
+	auto pOsobnikB = szukanieOsobnika(osobnikB, pHeadOsobnik);
+	Chromosomy* pMiejsciePrzecieciaA = znajdz_przeciecie(pOsobnikA);
+	Chromosomy* pMiejsciePrzecieciaB = znajdz_przeciecie(pOsobnikB);
 
-	pOsobnikA->liczba = liczenie_ilosci_genow(pOsobnikA->pNaGloweListyGenow);
-	pOsobnikB->liczba = liczenie_ilosci_genow(pOsobnikB->pNaGloweListyGenow);
+	// zamiana miejscami
+	std::swap(pMiejsciePrzecieciaA->pNextChromosom, pMiejsciePrzecieciaB->pNextChromosom);
 
-    // finito 
+	// ponowne liczenie funkcji oceny po wymianie genów + liczenie ilosci genow;
+	pOsobnikA->wartosc_funkcji_oceny = fukncja_oceny(pOsobnikA);
+	pOsobnikB->wartosc_funkcji_oceny = fukncja_oceny(pOsobnikB);
+
+	// finito
 }
 
-
-void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik *& pOsobnik)
+void doborOsobnikow(int wspolczynnik_p, int ile_osobnikow, Osobnik*& pHeadOsobnik)
 {
 	int osA, osB;
-	
-	while (ile_par != 0)
+
+	while (wspolczynnik_p != 0)
 	{
+		// losowanie osobników.
 		osA = losowanie(1, ile_osobnikow);
 		do
 		{
 			osB = losowanie(1, ile_osobnikow);
 		} while (osA == osB);
-		ile_par--;
-		
-		krzyzowanie_genow(osA, osB, pOsobnik);
-	}
+		wspolczynnik_p--;
 
+		krzyzowanie_genow(osA, osB, pHeadOsobnik);
+	}
 }
-int selekcja(Osobnik *& pOsobnik, Generacja*& pPokolenie, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania)
+
+//todo: Przepisaæ funckjê aby nowa generacja by³a now¹ list¹, a chromosomy nie kopiowaæ adrtes a przepisywac do wonych list
+
+int selekcja(Osobnik*& pHeadOsobnik, Generacja*& pPokolenie, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania)
 {
 	int ilosc_osobnikow_w_nowym_pokoleniu = 0, liczba_porzadkowa = 1;
-
-	while (ilosc_osobnikow&&pOsobnik != nullptr)
+	Osobnik* pHeadNowePokolenieOsobnik = nullptr, * pOsobnik = pPokolenie->pNaPoczatekGeneracji;
+	while (ilosc_osobnikow && pHeadOsobnik != nullptr)
 	{
-		if (pOsobnik->wartosc_funkcji_oceny > wspolczynnik_wymierania&&pOsobnik->wartosc_funkcji_oceny< wspolczynnik_rozmnazania)
+		// w<=f<=r
+
+		//todo: osobnik == nullptr. Nastepnie puscic usuwanie pokolenia.
+		if (pHeadOsobnik->wartosc_funkcji_oceny > wspolczynnik_wymierania&& pHeadOsobnik->wartosc_funkcji_oceny < wspolczynnik_rozmnazania)
 		{
-			pOsobnik = new Osobnik{ pOsobnik->liczba, pOsobnik->numer_osobnika,pOsobnik->wartosc_funkcji_oceny,pOsobnik->pNaGloweListyGenow, nullptr };
+			pHeadNowePokolenieOsobnik = new Osobnik;
+			pHeadOsobnik->liczba = pHeadOsobnik->liczba;
+			pHeadNowePokolenieOsobnik->numer_osobnika = ilosc_osobnikow_w_nowym_pokoleniu;
+			pHeadNowePokolenieOsobnik->wartosc_funkcji_oceny = pHeadOsobnik->wartosc_funkcji_oceny;
+			int i = 0;
+			Chromosomy* pHeadNewChromosomy = nullptr, * pChromerk = pHeadOsobnik->pNaGloweListyGenow;
+			while (pHeadOsobnik->pNaGloweListyGenow != nullptr && pChromerk != nullptr)
+			{
+				pHeadNewChromosomy = new Chromosomy;
+				pHeadNewChromosomy->gen = pChromerk->gen;
+				pHeadNewChromosomy->pNextChromosom = nullptr;
+				if (i == 0)
+					pHeadNowePokolenieOsobnik->pNaGloweListyGenow = pHeadNewChromosomy;
+				pChromerk = pChromerk->pNextChromosom;
+			}
 			ilosc_osobnikow_w_nowym_pokoleniu++;
 			if (ilosc_osobnikow_w_nowym_pokoleniu == 1)
 			{
-				pPokolenie = new Generacja;
-				pPokolenie->pNaPoczatekGenercji = pOsobnik;
-				pPokolenie->pNextGeneracja = nullptr;
-
+				pPokolenie->pNextGeneracja = new Generacja{ pHeadNowePokolenieOsobnik, nullptr };
 			}
+			std::cerr << pHeadNowePokolenieOsobnik;
+			pHeadNowePokolenieOsobnik = pHeadNowePokolenieOsobnik->pNext;
 		}
-		else if (pOsobnik->wartosc_funkcji_oceny > wspolczynnik_rozmnazania)
+		// f>r
+		else if (pHeadOsobnik->wartosc_funkcji_oceny > wspolczynnik_rozmnazania)
 		{
 			for (int q = 0; q < 2; q++)
 			{
-				pOsobnik = new Osobnik{ pOsobnik->liczba, pOsobnik->numer_osobnika,pOsobnik->wartosc_funkcji_oceny,pOsobnik->pNaGloweListyGenow, nullptr };
+				pHeadNowePokolenieOsobnik = new Osobnik;
+				pHeadOsobnik->liczba = pHeadOsobnik->liczba;
+				pHeadNowePokolenieOsobnik->numer_osobnika = ilosc_osobnikow_w_nowym_pokoleniu;
+				pHeadNowePokolenieOsobnik->wartosc_funkcji_oceny = pHeadOsobnik->wartosc_funkcji_oceny;
+				int i = 0;
+				Chromosomy* pHeadNewChromosomy = nullptr, * pChromerk = pHeadOsobnik->pNaGloweListyGenow;
+				while (pHeadOsobnik->pNaGloweListyGenow != nullptr && pChromerk != nullptr)
+				{
+					pHeadNewChromosomy = new Chromosomy;
+					pHeadNewChromosomy->gen = pChromerk->gen;
+					pHeadNewChromosomy->pNextChromosom = nullptr;
+					if (i == 0)
+						pHeadNowePokolenieOsobnik->pNaGloweListyGenow = pHeadNewChromosomy;
+					//pChromerk = pChromerk->pNextChromosom;
+				}
 				ilosc_osobnikow_w_nowym_pokoleniu++;
 				if (ilosc_osobnikow_w_nowym_pokoleniu == 1)
 				{
-					pPokolenie = new Generacja{ pOsobnik, nullptr };
+					pPokolenie->pNextGeneracja = new Generacja{ pHeadNowePokolenieOsobnik, nullptr };
 				}
+				std::cerr << pHeadNowePokolenieOsobnik;
+				//pHeadNowePokolenieOsobnik = pHeadNowePokolenieOsobnik->pNext;
 			}
 		}
-		pOsobnik = pOsobnik->pNext;
+		pHeadOsobnik = pHeadOsobnik->pNext;
 		ilosc_osobnikow--;
 	}
+
 	return ilosc_osobnikow_w_nowym_pokoleniu;
+}
+
+//todo: przerobic funkcje aby pasowa³a do 1 pokolenie == 1 lista
+void usuwanie(Generacja*& pPokolenie)
+{
+	Chromosomy* pChrom = nullptr;
+	Chromosomy* pChromC = nullptr;
+	Osobnik* pOsC = nullptr;
+	Generacja* pPoC = nullptr;
+	Osobnik* pOsoba = nullptr;
+
+	if (pPokolenie != nullptr)
+	{
+		while (pPokolenie->pNaPoczatekGeneracji != nullptr)
+		{
+			pOsoba = pPokolenie->pNaPoczatekGeneracji;
+			while (pPokolenie->pNaPoczatekGeneracji->pNaGloweListyGenow != nullptr && pPokolenie->pNaPoczatekGeneracji->pNaGloweListyGenow->gen > 0)
+			{
+				pChrom = pPokolenie->pNaPoczatekGeneracji->pNaGloweListyGenow;
+				pChromC = pChrom;
+				if (pChromC->pNextChromosom != nullptr)
+					pChromC = pChromC->pNextChromosom;
+				else
+					pChromC = nullptr;
+				delete pChrom;
+				pChrom = nullptr;
+				pOsoba->pNaGloweListyGenow = pChromC;
+			}
+			pOsC = pOsoba;
+			if (pOsC->pNext != nullptr)
+				pOsC = pOsC->pNext;
+			else
+				pOsC = nullptr;
+			delete pOsoba;
+			pOsoba = nullptr;
+			pPokolenie->pNaPoczatekGeneracji = pOsC;
+		}
+		pPoC = pPokolenie;
+		if (pPoC->pNextGeneracja != nullptr)
+			pPoC = pPoC->pNextGeneracja;
+		else
+			pPoC = nullptr;
+		delete pPokolenie;
+		pPokolenie = nullptr;
+		pPokolenie = pPoC;
+	}
+	delete pChrom;
+	delete pChromC;
+	delete pOsC;
+	delete pPoC;
+	delete pOsoba;
+	pChrom = nullptr;
+	pChromC = nullptr;
+	pOsC = nullptr;
+	pPoC = nullptr;
+	pOsoba = nullptr;
 }

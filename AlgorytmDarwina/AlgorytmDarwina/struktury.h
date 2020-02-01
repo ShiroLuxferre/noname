@@ -1,39 +1,36 @@
+/** @file */
 #ifndef STRUKTURY_H_INCLUDED
 #define STRUKTURY_H_INCLUDED
 
 #include <iostream>
 #define debug(x) std::cerr<<"("<<__LINE__<<")"<<#x<<" == "<<(x)<<"\n";
 
-
-
-
 /**
-Struktura zawiera listê genów dla ka¿dego osobnika
+Struktura zawiera listê genów dla ka¿dego osobnika.
 */
 struct Chromosomy
 {
-	int gen;	///< wartosc genu przechowywana w liscie
-	Chromosomy *pNextChromosom;	///<wskaznik na kolejny element listy
+	int gen;	///< wartoœæ genu przechowywana w liœcie.
+	Chromosomy* pNextChromosom;	///< wskaŸnik na kolejny element listy.
 };
 
-
 /**
-Struktura zawiera listê ze szczegolowym opisem osobnika
+Struktura zawiera listê ze szczegó³owym opisem osobnika.
 */
 struct Osobnik
 {
-	int liczba; ///< liczba genow
-	int numer_osobnika; ///< numer porzadkowy osobnika
-	double wartosc_funkcji_oceny;///< wartosc funkcji oceny
-	Chromosomy *pNaGloweListyGenow; /// wskaznik na liste genow osobnika
-	Osobnik *pNext; ///<wskaznik na kolejny element listy
+	int liczba; ///< liczba genów.
+	int numer_osobnika; ///< numer porz¹dkowy osobnika.
+	double wartosc_funkcji_oceny;///< wartoœæ funkcji oceny.
+	Chromosomy* pNaGloweListyGenow; ///< wskaŸnik na listê genów osobnika.
+	Osobnik* pNext; ///< wskaŸnik na kolejny element listy.
 };
 /**
-Struktura zawiera listê z adresami na pierszego  
+Struktura zawiera listê z adresami na pierwszego osobnika w pokoleniu.
 */
 struct Generacja
 {
-	Osobnik *pNaPoczatekGenercji; ///< Adres na pierszego osobnika nowej generacji;
-	Generacja *pNextGeneracja; ///<wskaznik na kolejny element listy
+	Osobnik* pNaPoczatekGeneracji; ///< adres na pierwszego osobnika nowej generacji.
+	Generacja* pNextGeneracja; ///< wskaŸnik na kolejny element listy.
 };
-#endif // STRUKTURY_H_INCLUDED 
+#endif // STRUKTURY_H_INCLUDED

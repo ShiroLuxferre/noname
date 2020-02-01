@@ -1,3 +1,5 @@
+/** @file */
+
 #ifndef EUGENIKA_H
 #define EUGENIKA_H
 
@@ -6,55 +8,59 @@
 #include "wspolczynnik.h"
 #include "eugenika.h"
 
-
-//todo: nieopisane funkcje 
-/**
-@param lewy lewy zakres losowanie
-@param prawy prawy akres losowania
-@param generator silnik losowania
-@return 
+/** Funkcja losuj¹ca.
+ * @param lewy lewy zakres losowanie.
+ * @param prawy prawy akres losowania.
+ * @return wynik
  */
 int losowanie(int lewy, int prawy);
 
-/**
-@param os numer porz¹dowa osobnika
-@param pOsoba glowa listy osobnikow
-@return adres szukanego osobnika 
+/** Wyszukuje osobnika w liœcie
+ * @param numer_osobnika numer porz¹dkowy osobnika.
+ * @param pOsoba g³owa listy osobników.
+ * @return adres szukanego osobnika.
  */
-Osobnik * szukanieOsobnika(int numer_osobnika, Osobnik * pOsoba);
+Osobnik* szukanieOsobnika(int numer_osobnika, Osobnik* pOsoba);
 
-
-/**
-@param n
-@param chromek g³owa listy Chromosomy
-@return adres szukanego chromosoma
+/** Wyszukuje adres genu
+ * @param pOsobnik g³owa listy Osobnik.
+ * @return adres szukanego chromosomu.
  */
 
-Chromosomy* znajdz_przeciecie(Osobnik *& pOsobnik);
-
-int liczenie_ilosci_genow(Chromosomy *& pChrom);
+Chromosomy* znajdz_przeciecie(Osobnik*& pOsobnik);
 
 /**
-@param os ???
-@param o glowa listy osobnikow
-@return adres szukanego osobnika
+ * @param pOsobnik g³owa listy Osobnik.
+ * @return iloœæ genów w liœcie.
  */
-void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik *& pOsoba);
+int liczenie_ilosci_genow(Osobnik*& pHeadOsobnik);
 
-/**
- * @param ile_par ?
- * @param ile_osobnikow ?
- * @param osoba // glowa listy osobnikow, pHead
- */ 
-void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik *& pOsobnik);
-/**
- * @param pOsobnik wskaznik na glowe listy.
- * @param ilosc_osobnikow liczba osobnikow w starej generacji.
- * @param wspolczynnik_rozmnazania powy¿ej którego osobniki sa klonowane.
- * @param wspolczynnik_wymierania wspolczynnik poni¿ej którego osobniki s¹ usuwane.
+/** Funckaj zbiera dane spod funkcji i wykonuje swap
+ * @param osobnikA numer porz¹dkowy osobnika A.
+ * @param osobnikB numer porz¹dkowy osobnika B.
+ * @param pOsoba g³owa listy osobników.
+ * @return adres szukanego osobnika.
  */
-int selekcja(Osobnik *& pOsobnik, Generacja*& pPokolenie, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania);
+void krzyzowanie_genow(int osobnikA, int osobnikB, Osobnik*& pOsoba);
 
+/** Losuje parê osobników do krzyzowania genów.
+ * @param ile_par wspó³czynnik p.
+ * @param ile_osobnikow iloœæ osobników w obecnym pokoleniu.
+ * @param pOsobnik g³owa listy osobników.
+ */
+void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik*& pOsobnik);
 
+/** Funkcja wykonuje selekjcê naturaln¹ na aktulanej populacji.
+ * @param pOsobnik wskaŸnik na g³owê listy.
+ * @param ilosc_osobnikow liczba osobników w starym pokoleniu.
+ * @param wspolczynnik_rozmnazania parametr, powy¿ej którego osobniki s¹ klonowane.
+ * @param wspolczynnik_wymierania wspolczynnik parametr, poni¿ej którego osobniki s¹ usuwane.
+ */
+int selekcja(Osobnik*& pOsobnik, Generacja*& pPokolenie, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania);
+
+/** Funkcja sprz¹ta dane po symulacji.
+ * @param pPokolenie wskaŸnik na g³owê listy.
+ */
+void usuwanie(Generacja*& pPokolenie);
 
 #endif // EUGENIKA_H

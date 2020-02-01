@@ -1,1 +1,3 @@
-﻿  AlgorytmDarwina.vcxproj -> C:\Users\Shiro\Documents\39956b37-gr82-repo\projekt\AlgorytmDarwina\Debug\AlgorytmDarwina.exe
+﻿  wczytywanie_pliku.cpp
+main.obj : error LNK2019: nierozpoznany zewnŕtrzny symbol "int __cdecl wczytaj_z_pliku(struct Generacja * &,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &)" (?wczytaj_z_pliku@@YAHAAPAUGeneracja@@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) przywo│any w funkcji _main
+C:\Users\Shiro\Documents\noname\AlgorytmDarwina\Debug\AlgorytmDarwina.exe : fatal error LNK1120: liczba nierozpoznanych elementˇw zewnŕtrznych: 1

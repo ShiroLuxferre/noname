@@ -5,19 +5,19 @@
 
 void wyswietlPopulacje(Osobnik* pGlowaOsobnika)
 {
+	Chromosomy* ch = nullptr;
 	int l = 1;
 	while (pGlowaOsobnika)
 	{
-		
 		std::cout << l << std::endl;
-		auto ch = pGlowaOsobnika->pNaGloweListyGenow;
+		ch = pGlowaOsobnika->pNaGloweListyGenow;
 		while (ch)
 		{
 			std::cout << ch->gen << "|";
 			ch = ch->pNextChromosom;
 		}
 		std::cout << std::endl;
-		std::cout << "[" << pGlowaOsobnika->wartosc_funkcji_oceny << ", " << pGlowaOsobnika->liczba<<"]"<<std::endl;
+		std::cout << "[" << pGlowaOsobnika->wartosc_funkcji_oceny << ", " << pGlowaOsobnika->liczba << "]" << std::endl;
 		pGlowaOsobnika = pGlowaOsobnika->pNext;
 		l++;
 	}

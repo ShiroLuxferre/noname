@@ -6,18 +6,17 @@
 #include "struktury.h"
 #include "wspolczynnik.h"
 
-/**Funkcja zape³nia liste z wskazaniem na pierwszego osobnika w gerneracji
-* @param pPokolenie wskaznik na pierwszy element listy
-* @param p ilosc pokolen
-*/
-void addGen(Generacja*& pPokolenie, int p);
+/** Funkcja wczytuje ci¹gi liczb z pliku do struktur.
+ * @param pPokolenie adres na pierwszego osonika w pokoleniu.
+ * @param nazwa_pliku nazwa pliku wejœciowego.
+ * @return iloœæ osobników w generacji.
+ */
+int wczytaj_z_pliku(Generacja*& pPokolenie, const std::string& nazwa_pliku);
 
-/** Funkcja wczytuje ci¹gi liczb i dodaje element na pocz¹tek listy Osobnik i Chromosomy, Dodaje ilosc populacji do listy Stado
-* @param pOsoba adres na pierwszy element listy Osobnik
-* @param pChromek adres pierwszego elementu listy  chromosomów
-* @param wartosc wartoœæ do dodania do listy 
-* @return iloœæ osobników w generacji*/
-int wczytajGeneracje(Generacja*&  pokolenie, const std::string & nazwa_pliku);
+/** Funkcja wczytuje ci¹gi liczb z pliku do struktur.
+ * @param pPokolenie adres na pierwszego osonika w pokoleniu.
+ * @return iloœæ osobników w generacji.
+ */
+void zapisz_do_pliku(Generacja*& pPokolenie, const std::string& nazwa_pliku, int ilosc_osobnikow);
 
 #endif // WCZYTYWANIE_PLIKU_H
- 
