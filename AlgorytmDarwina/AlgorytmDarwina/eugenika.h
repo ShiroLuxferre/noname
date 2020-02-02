@@ -59,8 +59,12 @@ void doborOsobnikow(int ile_par, int ile_osobnikow, Osobnik*& pOsobnik);
 int selekcja(Osobnik*& pOsobnik, Generacja*& pPokolenie, int ilosc_osobnikow, double wspolczynnik_rozmnazania, double wspolczynnik_wymierania);
 
 /** Funkcja sprz¹ta dane po symulacji.
+ * @param pHeadOsobnik wskaŸnik na g³owê listy.
+ */
+void usuwanie(Osobnik*& pHeadOsobnik);
+
+/** Funkcja sprz¹ta dane po symulacji.
  * @param pPokolenie wskaŸnik na g³owê listy.
  */
-void usuwanie(Generacja*& pPokolenie);
-
+void usuwanie_wszystkiego(Generacja*& pPokolenie);
 #endif // EUGENIKA_H

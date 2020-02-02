@@ -18,22 +18,22 @@ double fukncja_oceny(Chromosomy *& pChrom)
 }
 */
 
-double fukncja_oceny(Osobnik*& pOsoba)
+double fukncja_oceny(Osobnik*& pOsoba) //todo: poprawiæ nazwê!!!
 {
 	double wynik = 0;
-	int i = 0;
+	/*int i = 0;
 	auto pCh = pOsoba->pNaGloweListyGenow;
 	for (auto p = pCh->pNextChromosom; p != nullptr; p = p->pNextChromosom)
 	{
 		// 		wynik = sin(wynik += 1.0 / pCh->gen);
 		i++;
-	}
+	}*/
 
 	const double m = 5;
 	const double s = 2;
-	pOsoba->liczba = i;
+	int i = pOsoba->liczba;
 	double w = exp(-(i - m) * (i - m) / (2 * s * s));
-	std::cerr << w << std::endl;
+	//std::cerr << w << std::endl;
 	return w;
 	return wynik;
 }

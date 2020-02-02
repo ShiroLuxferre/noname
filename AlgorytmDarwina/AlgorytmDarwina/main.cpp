@@ -103,38 +103,46 @@ int main(int argc, char* argv[]) // wyklad z funkcji, main to tez funkcja
 		}
 
 		auto pOsoba = pPokolenie->pNaPoczatekGeneracji;
-		auto pPokDoUsun = pPokolenie;
+		auto pTempPoko = pPokolenie;
 		//wyswietlPopulacje(pOsoba);
 
 		// w petli
 		for (int i = 0; i < wspolczynnik_p; i++)
 		{
-			std::cout << "Generacja: " << i << " Ilosc Osobnikow: " << ilosc_osobnikow << std::endl;
+			std::cout << "Generacja: " << i + 1 << " Ilosc Osobnikow: " << ilosc_osobnikow << std::endl;
 			// krzyzowanie
-			doborOsobnikow(wspolczynnik_k, ilosc_osobnikow, pOsoba);
+			doborOsobnikow(wspolczynnik_k, ilosc_osobnikow, pPokolenie->pNaPoczatekGeneracji);
 			std::cout << "-----------" << std::endl;
 
 			// selekcja
-			ilosc_osobnikow = selekcja(pOsoba, pPokolenie, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
-			usuwanie(pPokolenie);
-			pOsoba = pPokolenie->pNaPoczatekGeneracji;
+			ilosc_osobnikow = selekcja(pPokolenie->pNaPoczatekGeneracji, pPokolenie, ilosc_osobnikow, wspolczynnik_rozmnazania, wspolczynnik_wymierania);
+			//pOsoba = pPokolenie->pNaPoczatekGeneracji;
+			wyswietlPopulacje(pPokolenie->pNaPoczatekGeneracji);
+			usuwanie(pPokolenie->pNaPoczatekGeneracji); /////////////////////////// !Tutaj skończyłem!
+			auto temp = pPokolenie->pNextGeneracja;
+			delete pPokolenie;
+			pPokolenie = nullptr;
+			pPokolenie = temp;
 			// sprawdzenie czy generacja nie skończyła się przedwcześnie
 			if (ilosc_osobnikow < 2)
 			{
 				std::cout << ilosc_osobnikow << " Symulacja przerwana, w populacji znajduje sie jeden osobnik!" << std::endl;
-				zapisz_do_pliku(pPokolenie, nazwa_pliku_wyjsciowego, ilosc_osobnikow);
+				//zapisz_do_pliku(pPokolenie, nazwa_pliku_wyjsciowego, ilosc_osobnikow);
 				return 0;
 			}
+			std::cout << pPokolenie->pNaPoczatekGeneracji << std::endl;
 		}
 		// zapisanie do pliku
-		zapisz_do_pliku(pPokolenie, nazwa_pliku_wyjsciowego, ilosc_osobnikow);
+		//zapisz_do_pliku(pPokolenie, nazwa_pliku_wyjsciowego, ilosc_osobnikow);
 		std::cout << std::endl;
 
 		//usuwanie
-		usuwanie(pPokDoUsun);
+		usuwanie_wszystkiego(pTempPoko);
 		return 0;
 	}
-#ifdef _WIN32
-	int __CrtDumpMemoryLeak(void);
-#endif
+	/*
+	#ifdef _WIN32
+		int __CrtDumpMemoryLeak(void);
+	#endif
+	*/
 }
