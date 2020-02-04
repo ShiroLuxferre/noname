@@ -3,7 +3,6 @@
 #define STRUKTURY_H_INCLUDED
 
 #include <iostream>
-#define debug(x) std::cerr<<"("<<__LINE__<<")"<<#x<<" == "<<(x)<<"\n";
 
 /**
 Struktura zawiera listê genów dla ka¿dego osobnika.
@@ -25,6 +24,7 @@ struct Osobnik
 	Chromosomy* pNaGloweListyGenow; ///< wskaŸnik na listê genów osobnika.
 	Osobnik* pNext; ///< wskaŸnik na kolejny element listy.
 };
+
 /**
 Struktura zawiera listê z adresami na pierwszego osobnika w pokoleniu.
 */

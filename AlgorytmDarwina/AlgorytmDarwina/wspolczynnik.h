@@ -5,11 +5,12 @@
 
 #include "struktury.h"
 #include "wspolczynnik.h"
+
 /**
 Funkcja oblicza wspó³czynnik f, ocenê prze¿ycia osobnika.
 @param pOsobnik wskaŸnik na konkretnego osobnika.
 @return wynik oceny osobnika.
 */
-double fukncja_oceny(Osobnik*& pOsoba);
+double funkcja_oceny(Osobnik*& pOsoba);
 
 #endif // WSPOLCZYNNIK_H

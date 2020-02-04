@@ -5,7 +5,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LocalDebuggerCommandArguments>-i i.txt -o o.txt -r 0.7 -w 0.3 -p 2 -k 16</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-i i.txt -o o.txt -r 0.7 -w 0.3 -p 200 -k 16</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
 </Project>

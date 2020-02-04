@@ -50,10 +50,9 @@ int wczytaj_z_pliku(Generacja*& pPokolenie, const std::string& nazwa_pliku)
 			pOsoba->liczba = ilosc_genu;
 			pOsoba->numer_osobnika = ilosc_osobnikow;
 			pOsoba->pNaGloweListyGenow = pChromosom;
-			pOsoba->wartosc_funkcji_oceny = fukncja_oceny(pOsoba); //poprawiæ nazwê fukncja_oceny
+			pOsoba->wartosc_funkcji_oceny = funkcja_oceny(pOsoba); //poprawiæ nazwê fukncja_oceny
 			pOsoba->pNext = nullptr;
 			pPokolenie = new Generacja{ pOsoba,nullptr };
-			//todo - poprawic blad fukncja
 		}
 		else
 		{
@@ -65,7 +64,7 @@ int wczytaj_z_pliku(Generacja*& pPokolenie, const std::string& nazwa_pliku)
 			temppOsoba->pNext->liczba = ilosc_genu;
 			temppOsoba->pNext->numer_osobnika = ilosc_osobnikow;
 			temppOsoba->pNext->pNaGloweListyGenow = pChromosom;
-			temppOsoba->pNext->wartosc_funkcji_oceny = fukncja_oceny(pOsoba);
+			temppOsoba->pNext->wartosc_funkcji_oceny = funkcja_oceny(temppOsoba->pNext);
 			temppOsoba->pNext->pNext = nullptr;
 		}
 	}
